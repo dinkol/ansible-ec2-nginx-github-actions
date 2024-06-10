@@ -1,8 +1,35 @@
-name: hello-world
-on: push
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  my-job:
+  run-playbooks:
     runs-on: ubuntu-latest
-    steps:
-      - name: my-step
-        run: echo "Hello World!"
+    steps: 
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          
+      - name: Setup SSH 
+        shell: bash
+        run: |
+         eval `ssh-agent -s`
+         mkdir -p /home/runner/.ssh/
+         touch /home/runner/.ssh/id_rsa
+         echo -e "${{secrets.SSH_KEY}}" > /home/runner/.ssh/id_rsa
+         chmod 700 /home/runner/.ssh/id_rsa
+         ssh-keyscan -t rsa,dsa,ecdsa,ed25519 ${{secrets.SSH_HOST}} >> /home/runner/.ssh/known_hosts
+      - name: Run ansible script
+        shell: bash 
+        run: |
+          service ssh status
+          cat setup-prod.yml
+          ansible-playbook -vvv --private-key /home/runner/.ssh/id_rsa -u ${{secrets.ANSIBLE_DEPLOY_USER}} -i hosts.yml ansible-pb.yml
