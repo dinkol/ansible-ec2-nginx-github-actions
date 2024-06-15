@@ -32,4 +32,4 @@ jobs:
         shell: bash 
         run: |
           service ssh status
-          ansible-playbook -vvv --private-key /home/runner/.ssh/id_rsa -u ${{secrets.ANSIBLE_DEPLOY_USER}} -i hosts.yml ansible-pb.yml
+          ansible-playbook -vvv --private-key /home/runner/.ssh/id_rsa -i hosts.yml ansible-pb.yml
