@@ -10,10 +10,6 @@
       package:
         name: python
         state: present
-   
-    - name: Install and configure nginx for static website hosting
-      hosts: webservers
-      become: yes
 
     - name: Install nginx
       apt:
