@@ -31,11 +31,21 @@
       file:
         path: /etc/nginx/sites-enabled/default
         state: absent
-
-    - name: Add nginx configuration
+    
+    - name: create static-file-config
       copy:
-        src: /home/runner/static-site-config
-        dest: /etc/nginx/sites-available/
+        dest: /etc/nginx/sites-available/static-site-config
+        content: |
+          server 
+            listen 80;
+    
+
+            location / {
+              root /var/www/html;
+              index index.html;
+             }
+          }{
+
         owner: "ec2-user"
         group: root
         mode: '0644'
