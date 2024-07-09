@@ -34,20 +34,22 @@
       file:
         path: /etc/nginx/sites-available  # The path of the directory to create
         state: directory
+        group: root
+        mode: '0777'
 
     - name: create sites-enabled default nginx configuration
       file:
         path: /etc/nginx/sites-enabled
         state: directory
         group: root
-        mode: '0644'
+        mode: '0777'
 
     - name: create sites-enabled default nginx configuration
       file:
         path: /etc/nginx/sites-enabled/static-site-config
         state: touch
         group: root
-        mode: '0644'
+        mode: '0777'
         
     
     - name: create static-file-config
@@ -66,7 +68,7 @@
 
         owner: "ec2-user"
         group: root
-        mode: '0644'
+        mode: '0777'
 
     - name: Enable website configuration
       file:
