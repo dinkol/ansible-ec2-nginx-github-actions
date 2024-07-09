@@ -37,8 +37,7 @@
         state: directory
         
     
-    - name: 
-      create static-file-config
+    - name: create static-file-config
       copy:
         dest: /etc/nginx/sites-available/static-site-config
         content: |
