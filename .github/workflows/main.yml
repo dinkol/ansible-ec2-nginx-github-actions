@@ -32,4 +32,5 @@ jobs:
         shell: bash 
         run: |
           service ssh status
-          ansible-playbook -vv -i /home/runner/hosts.yml /home/runner/ansible-pb.yml
+          pwd
+          ansible-playbook -vv -i hosts.yml ansible-pb.yml
