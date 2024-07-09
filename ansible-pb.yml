@@ -44,6 +44,8 @@
       file:
         path: /etc/nginx/sites-enabled/static-site-config
         state: touch
+        group: root
+        mode: '0644'
         
     
     - name: create static-file-config
