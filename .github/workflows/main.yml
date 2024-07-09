@@ -33,4 +33,5 @@ jobs:
         run: |
           service ssh status
           pwd
-          ansible-playbook -vv -i hosts.yml ansible-pb.yml
+          ls /home/runner/wor/ansible-demo/ansible-demo
+          ansible-playbook -i hosts.yml ansible-pb.yml
