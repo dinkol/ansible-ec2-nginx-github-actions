@@ -71,7 +71,7 @@
     - name: Enable website configuration
       file:
         src: /etc/nginx/sites-available/static-site-config
-        dest: /etc/nginx/sites-enabled
+        dest: /etc/nginx/sites-enabled/static-site-config
         state: link
 
     - name: Ensure nginx is running
