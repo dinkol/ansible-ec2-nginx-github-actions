@@ -39,6 +39,8 @@
       file:
         path: /etc/nginx/sites-enabled
         state: directory
+        group: root
+        mode: '0644'
 
     - name: create sites-enabled default nginx configuration
       file:
