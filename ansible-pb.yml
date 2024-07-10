@@ -44,13 +44,7 @@
         group: root
         mode: '0777'
 
-    - name: create sites-enabled default nginx configuration
-      file:
-        path: /etc/nginx/sites-enabled/static-site-config
-        state: touch
-        group: root
-        owner: "ec2-user"
-        mode: '0777'
+    
         
     
     - name: create static-file-config
