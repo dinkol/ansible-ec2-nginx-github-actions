@@ -49,7 +49,7 @@
         path: /etc/nginx/sites-enabled/static-site-config
         state: touch
         group: root
-        owner: root
+        owner: "ec2-user"
         mode: '0777'
         
     
@@ -67,7 +67,7 @@
              }
           }{
 
-        owner: "root"
+        owner: "ec2-user"
         group: root
         mode: '0777'
 
