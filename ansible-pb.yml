@@ -30,7 +30,7 @@
 
     - name: create static-file-config
       copy:
-        dest: /usr/share/nginx/index.html
+        dest: /usr/share/nginx/html/index.html
         content: |
                     <!DOCTYPE html>
                     <html lang="en">
