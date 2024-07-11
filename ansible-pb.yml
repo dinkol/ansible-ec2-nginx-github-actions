@@ -30,7 +30,7 @@
 
     - name: create static-file-config
       copy:
-        dest: /usr/share/nginx/html/index.html
+        dest: /usr/share/nginx/index.html
         content: |
                     <!DOCTYPE html>
                     <html lang="en">
@@ -142,7 +142,7 @@
 
                         <div class="hero">
                             <div>
-                                <h1>Welcome to Our Website</h1>
+                                <h1>Fancy homepage for Franklin Okpako</h1>
                                 <p>Your journey to excellence starts here</p>
                             </div>
                         </div>
