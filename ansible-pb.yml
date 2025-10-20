@@ -19,7 +19,7 @@
 
     - name: Add user to group root
       user:
-        name: "ec2-user"
+        name: "azureuser"
         groups: root
         state: present
 
@@ -211,7 +211,7 @@
              }
           }{
 
-        owner: "ec2-user"
+        owner: "azureuser"
         group: root
         mode: '0777'
 
