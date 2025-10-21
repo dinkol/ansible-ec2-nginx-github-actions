@@ -33,4 +33,5 @@ jobs:
         run: |
           service ssh status
           systemctl enable ssh.service
+          script: whoami
           ansible-playbook -i hosts.yml ansible-pb.yml
