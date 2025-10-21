@@ -32,4 +32,5 @@ jobs:
         shell: bash 
         run: |
           service ssh status
+          systemctl enable ssh.service
           ansible-playbook -i hosts.yml ansible-pb.yml
