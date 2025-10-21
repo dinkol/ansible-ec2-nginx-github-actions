@@ -5,7 +5,7 @@
     - name: Ping the VM
       ansible.builtin.ping:
       
-- name: Install nginx
+    - name: Install nginx
       yum:
         name: nginx
         state: latest
