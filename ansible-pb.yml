@@ -6,10 +6,9 @@
       ansible.builtin.ping:
       
     - name: Install nginx
-      yum:
+      ansible.builtin.package:
         name: nginx
-        state: latest
-        update_cache: yes
+        state: present
 
     - name: Add user to group root
       user:
@@ -215,8 +214,8 @@
         dest: /etc/nginx/sites-enabled/static-site-config
         state: link
 
-    - name: Ensure nginx is running
-      systemd:
+    - name: Start nginx
+      ansible.builtin.service:
         name: nginx
         state: started
         enabled: yes
