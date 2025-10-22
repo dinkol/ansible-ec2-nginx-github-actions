@@ -209,7 +209,7 @@
               root /var/www/html;
               index index.html;
              }
-          }{
+          
 
         owner: "ec2-user"
         group: root
