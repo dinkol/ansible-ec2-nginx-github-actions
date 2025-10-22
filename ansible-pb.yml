@@ -217,7 +217,7 @@
     - name: Ensure web root has correct permissions
       ansible.builtin.file:
         path: /var/www/html
-        owner: azureuser
+        owner: "azureuser"
         group: root
         mode: '0777'
         recurse: yes
