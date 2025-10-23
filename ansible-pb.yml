@@ -1,11 +1,12 @@
-- name: Test connection to Azure VM
+- name: Test connection to Azure VM and install nginx
   hosts: all
   become: yes
+
   tasks:
-    - name: VM info  
-      - debug:
-          var: ansible_facts 
-                 
+    - name: Show VM facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
     - name: Install nginx
       ansible.builtin.package:
         name: nginx
