@@ -4,10 +4,6 @@
   tasks:
     - name: Ping the VM
       ansible.builtin.ping:
-
-    - name: Print vm info
-      hosts: all
-      tasks:
       - debug:
            var: ansible_facts 
           
