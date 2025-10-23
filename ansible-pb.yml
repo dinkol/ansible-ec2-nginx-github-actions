@@ -4,7 +4,7 @@
   tasks:
     - name: VM info  
       - debug:
-           var: ansible_facts 
+          var: ansible_facts 
                  
     - name: Install nginx
       ansible.builtin.package:
