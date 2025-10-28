@@ -18,7 +18,9 @@ jobs:
           
       - name: Install Ansible and Azure SDKs
         run: |
-          pip3 install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
+          pip install "ansible[azure]" azure-cli \
+          azure-mgmt-compute azure-mgmt-network azure-mgmt-resource azure-mgmt-storage \
+          azure-mgmt-dns azure-mgmt-keyvault azure-mgmt-containerservice azure-mgmt-msi 
           ansible-galaxy collection install azure.azcollection
 
 
