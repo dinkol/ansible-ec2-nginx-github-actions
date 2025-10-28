@@ -17,11 +17,12 @@ jobs:
           python-version: '3.10'
           
       - name: Install Ansible and Azure SDKs
+        working-directory: ./ansible-ec2-nginx-github-actions
         run: |
           pip install --upgrade pip
           pip install ansible[azure]
           ansible-galaxy collection install azure.azcollection
-          pip install -r ~/.ansible-ec2-nginx-github-actions/ansible-ec2-nginx-github-actions/requirements.txt
+          pip install -r requirements.txt
           
 
 
