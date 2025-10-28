@@ -21,7 +21,7 @@ jobs:
           pip install --upgrade pip
           pip install ansible[azure]
           ansible-galaxy collection install azure.azcollection
-          pip install -r ~/.dinkol/ansible-ec2-nginx-github-actions/requirements.txt
+          pip install -r ~/home/runner/work/ansible-ec2-nginx-github-actions/ansible-ec2-nginx-github-actions/requirements.txt
           
 
 
