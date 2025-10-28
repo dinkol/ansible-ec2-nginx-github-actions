@@ -3,9 +3,6 @@
   become: yes
 
   tasks:
-    - name: Show VM facts
-      ansible.builtin.debug:
-        var: ansible_facts
 
     - name: Install nginx
       ansible.builtin.package:
