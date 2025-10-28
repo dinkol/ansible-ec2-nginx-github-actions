@@ -16,10 +16,11 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Ansible and Azure collection
+      - name: Install Ansible and Azure SDKs
         run: |
-          pip install ansible msrestazure azure-cli
+          pip install "ansible[azure]" azure-cli
           ansible-galaxy collection install azure.azcollection
+
           
       - name: Configure SSH key
         run: |
