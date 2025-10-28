@@ -15,11 +15,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
+          
       - name: Install Ansible and Azure SDKs
         run: |
-          pip install "ansible[azure]" azure-cli
+          pip install ansible azure-cli msrestazure azure-identity \
+            azure-mgmt-compute azure-mgmt-network azure-mgmt-resource azure-mgmt-storage
           ansible-galaxy collection install azure.azcollection
+
 
           
       - name: Configure SSH key
