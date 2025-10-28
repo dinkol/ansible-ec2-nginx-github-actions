@@ -28,7 +28,8 @@ jobs:
           azure-mgmt-keyvault \
           azure-mgmt-containerservice \
           azure-mgmt-msi \
-          azure-storage-blob
+          azure-storage-blob \
+          azure-mgmt-automation
           ansible-galaxy collection install azure.azcollection
 
 
