@@ -1,0 +1,32 @@
+name: Run Ansible Playbook on Azure VM
+
+on:
+  workflow_dispatch:  # allows you to manually trigger from GitHub UI
+
+jobs:
+  ansible:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Ansible and Azure collection
+        run: |
+          pip install ansible msrestazure azure-cli
+          ansible-galaxy collection install azure.azcollection
+
+      - name: Run Ansible Playbook
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_TENANT: ${{ secrets.AZURE_TENANT_ID }}
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook ansible-pb-azure.yml -i inventory.ini
