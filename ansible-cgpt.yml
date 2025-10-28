@@ -1,0 +1,136 @@
+---
+- name: Deploy fancy homepage with Nginx on Azure VM
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure nginx main config exists
+      ansible.builtin.copy:
+        dest: /etc/nginx/nginx.conf
+        content: |
+          user www-data;
+          worker_processes auto;
+          pid /run/nginx.pid;
+          include /etc/nginx/modules-enabled/*.conf;
+
+          events {
+              worker_connections 768;
+          }
+
+          http {
+              sendfile on;
+              tcp_nopush on;
+              tcp_nodelay on;
+              keepalive_timeout 65;
+              types_hash_max_size 2048;
+
+              include /etc/nginx/mime.types;
+              default_type application/octet-stream;
+
+              access_log /var/log/nginx/access.log;
+              error_log /var/log/nginx/error.log;
+
+              gzip on;
+
+              include /etc/nginx/conf.d/*.conf;
+              include /etc/nginx/sites-enabled/*;
+          }
+        owner: azureuser
+        group: root
+        mode: '0644'
+
+    - name: Install nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Ensure required directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: azureuser
+        group: root
+        mode: '0755'
+      loop:
+        - /etc/nginx/sites-available
+        - /etc/nginx/sites-enabled
+        - /usr/share/nginx/html
+
+    - name: Deploy static homepage
+      ansible.builtin.copy:
+        dest: /usr/share/nginx/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Fancy Homepage</title>
+              <style>
+                  body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; }
+                  .hero { height: 100vh; display: flex; justify-content: center; align-items: center;
+                          background: #333; color: white; text-align: center; }
+                  h1 { font-size: 3em; }
+              </style>
+          </head>
+          <body>
+              <div class="hero">
+                  <div>
+                      <h1>Fancy Homepage for Franklin Okpako</h1>
+                      <p>Your journey to excellence starts here</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Remove default nginx site
+      ansible.builtin.file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Create custom Nginx site config
+      ansible.builtin.copy:
+        dest: /etc/nginx/sites-available/static-site-config
+        content: |
+          server {
+              listen 80;
+              server_name _;
+              root /usr/share/nginx/html;
+              index index.html;
+
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+          }
+        owner: azureuser
+        group: root
+        mode: '0644'
+
+    - name: Enable custom site
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/static-site-config
+        dest: /etc/nginx/sites-enabled/static-site-config
+        state: link
+        force: yes
+
+    - name: Ensure nginx logs directory exists
+      ansible.builtin.file:
+        path: /var/log/nginx
+        state: directory
+        owner: www-data
+        group: adm
+        mode: '0755'
+
+    - name: Test nginx configuration
+      ansible.builtin.command: nginx -t
+      register: nginx_test
+      failed_when: "'successful' not in nginx_test.stderr"
+
+    - name: Restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        enabled: yes
