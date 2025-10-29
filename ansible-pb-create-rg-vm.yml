@@ -1,0 +1,63 @@
+- name: Create an Azure Linux VM
+  hosts: localhost
+  connection: local
+  collections:
+    - azure.azcollection
+
+  vars:
+    resource_group: rg-dinko
+    location: "northeurope"
+    vm_name: "ansible-demo-vm"
+    admin_user: azureuser
+    admin_password: "SuperSecurePassword123!"
+
+  tasks:
+    - name: Ensure resource group exists
+      azure.azcollection.azure_rm_resourcegroup:
+        name: "{{ resource_group }}"
+        location: "{{ location }}"
+
+    - name: Create virtual network
+      azure.azcollection.azure_rm_virtualnetwork:
+        resource_group: "{{ resource_group }}"
+        name: "ansibleVnet"
+        address_prefixes: "10.0.0.0/16"
+
+    - name: Create subnet
+      azure.azcollection.azure_rm_subnet:
+        resource_group: "{{ resource_group }}"
+        name: "default"
+        address_prefix: "10.0.1.0/24"
+        virtual_network: "ansibleVnet"
+
+    - name: Create public IP
+      azure.azcollection.azure_rm_publicipaddress:
+        resource_group: "{{ resource_group }}"
+        allocation_method: Static
+        name: "ansiblePublicIP"
+
+    - name: Create network interface
+      azure.azcollection.azure_rm_networkinterface:
+        resource_group: "{{ resource_group }}"
+        name: "ansibleNIC"
+        virtual_network: "ansibleVnet"
+        subnet_name: "default"
+        public_ip_name: "ansiblePublicIP"
+
+    - name: Create a Linux VM
+      azure.azcollection.azure_rm_virtualmachine:
+        resource_group: "{{ resource_group }}"
+        name: "{{ vm_name }}"
+        admin_username: "{{ admin_user }}"
+        admin_password: "{{ admin_password }}"
+        network_interfaces: "ansibleNIC"
+        image:
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: "20_04-lts"
+          version: latest
+        vm_size: Standard_B1s
+
+    - name: Show public IP
+      debug:
+        msg: "VM created! Public IP is {{ hostvars.localhost.ansible_facts.azure_public_ip }}"
