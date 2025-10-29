@@ -47,6 +47,21 @@
             public_ip_address_name: "ansiblePublicIP"
             primary: true
 
+    - name: Get facts for a specific image
+      azure_rm_virtualmachineimage_info:
+        location: eastus
+        publisher: OpenLogic
+        offer: CentOS
+        sku: '7.1'
+        version: '7.1.20160308'
+
+    - name: List available versions
+      azure_rm_virtualmachineimage_info:
+        location: eastus
+        publisher: OpenLogic
+        offer: CentOS
+        sku: '7.1'
+
     - name: Create a Linux VM
       azure_rm_virtualmachine:
         resource_group: "{{ resource_group }}"
@@ -56,10 +71,10 @@
         network_interfaces: "ansibleNIC"
         vm_size: Standard_D4s_v3
         image:
-          offer: 0001-com-ubuntu-server-focal
-          publisher: Canonical
-          sku: 20_04-lts
-          version: latest
+          publisher: OpenLogic
+          offer: CentOS
+          sku: '7.1'
+          version: '7.1.20160308'
    
 
     - name: Show public IP
