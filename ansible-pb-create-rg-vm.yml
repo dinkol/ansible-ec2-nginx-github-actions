@@ -6,7 +6,7 @@
 
   vars:
     resource_group: rg-dinko
-    location: "northeurope"
+    location: "eastus"
     vm_name: "ansible-demo-vm"
     admin_user: azureuser
     admin_password: "SuperSecurePassword123!"
