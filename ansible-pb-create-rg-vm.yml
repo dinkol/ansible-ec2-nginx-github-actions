@@ -59,7 +59,7 @@
           publisher: OpenLogic
           sku: '8.2'
           version: latest
-        vm_size: Standard_B1s
+   
 
     - name: Show public IP
       debug:
