@@ -54,10 +54,11 @@
         admin_username: "{{ admin_user }}"
         admin_password: "{{ admin_password }}"
         network_interfaces: "ansibleNIC"
+        vm_size: Standard_D4s_v3
         image:
-          offer: CentOS
-          publisher: OpenLogic
-          sku: '8.2'
+          offer: 0001-com-ubuntu-server-focal
+          publisher: Canonical
+          sku: 20_04-lts
           version: latest
    
 
