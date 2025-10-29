@@ -47,20 +47,14 @@
             public_ip_address_name: "ansiblePublicIP"
             primary: true
 
-    - name: Get facts for a specific image
+    - name: List available offers
       azure_rm_virtualmachineimage_info:
         location: eastus
         publisher: OpenLogic
-        offer: CentOS
-        sku: '7.1'
-        version: '7.1.20160308'
-
-    - name: List available versions
+    
+    - name: List available publishers
       azure_rm_virtualmachineimage_info:
         location: eastus
-        publisher: OpenLogic
-        offer: CentOS
-        sku: '7.1'
 
     - name: Create a Linux VM
       azure_rm_virtualmachine:
