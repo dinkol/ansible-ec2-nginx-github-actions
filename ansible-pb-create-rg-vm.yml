@@ -37,12 +37,15 @@
         name: "ansiblePublicIP"
 
     - name: Create network interface
-      azure.azcollection.azure_rm_networkinterface:
+      azure_rm_networkinterface:
         resource_group: "{{ resource_group }}"
         name: "ansibleNIC"
         virtual_network: "ansibleVnet"
         subnet_name: "default"
-        public_ip_name: "ansiblePublicIP"
+        ip_configurations:
+          - name: ipconfig1
+            public_ip_address_name: "ansiblePublicIP"
+            primary: true
 
     - name: Create a Linux VM
       azure.azcollection.azure_rm_virtualmachine:
