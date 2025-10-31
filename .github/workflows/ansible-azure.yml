@@ -21,7 +21,7 @@ jobs:
           pip install --upgrade pip
           pip install ansible[azure]
           ansible-galaxy collection install azure.azcollection --force
-          pip install -r requirements.txt
+          # pip install -r requirements.txt
           pip install azure-cli
           
 
