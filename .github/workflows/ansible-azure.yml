@@ -14,11 +14,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.13.1'
           
       - name: Install Ansible
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install ansible[azure]
           ansible-galaxy role install azure.azure_preview_modules
           ansible-galaxy collection install azure.azcollection --force
