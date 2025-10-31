@@ -1,0 +1,36 @@
+- name: Create an Azure Linux VM
+  hosts: localhost
+  connection: local
+  collections:
+    - azure.azcollection
+
+  vars:
+    resource_group: rg-dinko
+    location: "eastus"
+
+  tasks:
+    - name: Create App Service Plan
+      azure_rm_appserviceplan:
+        resource_group: "{{ resource_group }}"
+        name: "dinkoplan"
+        is_linux: true
+        sku: S1
+        number_of_workers: 1
+  
+    - name: Scale up the App Service Plan
+      azure_rm_appserviceplan:
+        resource_group: "{{ resource_group }}"
+        name: "dinkoplan"
+        is_linux: true
+        sku: S2
+        number_of_workers: 1
+  
+    - name: Get facts
+      azure_rm_appserviceplan_facts:
+        resource_group: "{{ resource_group }}"
+        name: "dinkoplan"
+      register: output
+  
+    - name: Display facts output
+      debug:
+        var: output
