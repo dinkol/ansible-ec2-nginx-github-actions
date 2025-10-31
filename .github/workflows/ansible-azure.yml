@@ -22,7 +22,6 @@ jobs:
           pip install ansible[azure]
           ansible-galaxy role install azure.azure_preview_modules
           ansible-galaxy collection install azure.azcollection --force
-          pip install -r requirements-azure.txt
           pip install -r requirements.txt
           # pip install azure-cli    
 
