@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13.3'
+          python-version: '3.13.6'
           
       - name: Install Ansible
         run: |
@@ -23,7 +23,8 @@ jobs:
           ansible-galaxy role install azure.azure_preview_modules
           ansible-galaxy collection install azure.azcollection --force
           pip install -r requirements.txt
-          # pip install azure-cli    
+          pip install azure-cli    
+          pip install azure-cli --only-binary=:all:
 
 
 
