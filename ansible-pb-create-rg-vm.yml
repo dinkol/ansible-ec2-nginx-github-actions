@@ -63,12 +63,12 @@
         admin_username: "{{ admin_user }}"
         admin_password: "{{ admin_password }}"
         network_interfaces: "ansibleNIC"
-        vm_size: Standard_D4s_v3
         image:
-          publisher: OpenLogic
-          offer: CentOS
-          sku: '7.1'
-          version: '7.1.20160308'
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: '18.04-LTS'
+          version: latest
+        vm_size: Standard_B1s
    
 
     - name: Show public IP
