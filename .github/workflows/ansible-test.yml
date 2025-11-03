@@ -14,8 +14,11 @@ jobs:
 
       - name: Set up Python and Ansible
         run: |
+          
+          sudo apt install python3-pip          
+          pip3 install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
           ansible-galaxy collection install azure.azcollection --force
-          $ pip install 'ansible[azure]'
+          pip install ansible[azure]
           python -m pip install --upgrade pip
           # pip install ansible azure-cli
 
