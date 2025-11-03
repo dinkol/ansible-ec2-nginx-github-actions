@@ -16,7 +16,7 @@ jobs:
         run: |
           
           sudo apt install python3-pip          
-          pip3 install -r requirements-azure.txt
+          pip3 install -r requirements.txt
           ansible-galaxy collection install azure.azcollection --force
           pip install ansible[azure]
           python -m pip install --upgrade pip
