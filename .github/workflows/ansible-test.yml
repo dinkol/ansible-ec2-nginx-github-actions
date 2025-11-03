@@ -19,5 +19,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install ansible azure-cli
 
-      - name: Run provisioning playbook
-        run: ansible-playbook ansible/playbooks/provision.yml -i ansible/inventories/staging/hosts.yml
+      - name: Run Ansible Playbook
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_TENANT: ${{ secrets.AZURE_TENANT_ID }}
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook ansible-pb-appserviceplan.yml -i inventory.ini
