@@ -46,11 +46,6 @@
           - name: ipconfig1
             public_ip_address_name: "ansiblePublicIP"
             primary: true
-
-    - name: List available offers
-      azure_rm_virtualmachineimage_info:
-        location: eastus
-        publisher: OpenLogic
     
     - name: List available publishers
       azure_rm_virtualmachineimage_info:
@@ -66,7 +61,7 @@
         image:
           offer: UbuntuServer
           publisher: Canonical
-          sku: '18.04-LTS'
+          sku: '22.04-LTS'
           version: latest
         vm_size: Standard_B1s
    
