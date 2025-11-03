@@ -26,4 +26,4 @@ jobs:
           AZURE_TENANT: ${{ secrets.AZURE_TENANT_ID }}
           ANSIBLE_HOST_KEY_CHECKING: False
         run: |
-          ansible-playbook ansible-pb-appserviceplan.yml -i inventory.ini
+          ansible-playbook ansible-test-azure.yml -i inventory.ini
