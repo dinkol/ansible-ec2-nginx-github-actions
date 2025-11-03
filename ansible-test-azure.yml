@@ -1,0 +1,16 @@
+- name: Create resource group and virtual machine
+  hosts: localhost
+  tasks:
+
+
+    - name: Create VM
+      azure_rm_virtualmachine:
+        name: webapp-vm
+        resource_group: rg-dinko
+        admin_username: devops
+        image:
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: '18.04-LTS'
+          version: latest
+        vm_size: Standard_B1s
