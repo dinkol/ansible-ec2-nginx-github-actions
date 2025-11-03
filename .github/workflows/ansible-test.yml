@@ -2,10 +2,8 @@
 name: Deploy with Ansible
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_dispatch:  # manually trigger from GitHub
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
