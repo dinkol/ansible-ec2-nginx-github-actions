@@ -61,7 +61,7 @@
         image:
           offer: UbuntuServer
           publisher: Canonical
-          sku: '24.04-LTS'
+          sku: '22_04-lts-gen2'
           version: latest
         vm_size: Standard_B1s
    
