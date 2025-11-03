@@ -70,7 +70,8 @@
           version: latest
         vm_size: Standard_B1s
    
-
-    - name: Show public IP
-      debug:
-        msg: "VM created! Public IP is {{ hostvars.localhost.ansible_facts.azure_public_ip }}"
+    
+    - name: Get facts for one Public IP
+      azure_rm_publicipaddress_info:
+        resource_group: rg-dinko
+        name: ansiblePublicIP
