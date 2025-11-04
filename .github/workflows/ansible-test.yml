@@ -14,13 +14,10 @@ jobs:
 
       - name: Set up Python and Ansible
         run: |
-          
-          sudo apt install python3-pip          
+          sudo apt-get install python3-pip          
           pip3 install -r requirements.txt
           ansible-galaxy collection install azure.azcollection --force
           pip install ansible[azure]
-          python -m pip install --upgrade pip
-          # pip install ansible azure-cli
 
       - name: Run Ansible Playbook
         env:
