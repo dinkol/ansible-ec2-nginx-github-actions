@@ -18,7 +18,7 @@ jobs:
           
       - name: Install Ansible
         run: |
-          apt-get install python3-pip          
+          sudo apt-get install python3-pip          
           pip3 install -r requirements.txt
           ansible-galaxy collection install azure.azcollection --force
           pip install ansible[azure]
