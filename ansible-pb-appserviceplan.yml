@@ -9,20 +9,13 @@
     location: "eastus"
 
   tasks:
-    - name: Create App Service Plan
+    - name: Create a linux app service plan
       azure_rm_appserviceplan:
         resource_group: "{{ resource_group }}"
-        name: "dinkoplan"
-        is_linux: true
+        name: myAppPlan
+        location: eastus
         sku: S1
-        number_of_workers: 1
-  
-    - name: Scale up the App Service Plan
-      azure_rm_appserviceplan:
-        resource_group: "{{ resource_group }}"
-        name: "dinkoplan"
         is_linux: true
-        sku: S2
         number_of_workers: 1
 
   
