@@ -28,11 +28,11 @@ jobs:
 
 
 
-      - name: Configure SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+    #  - name: Configure SSH key
+     #   run: |
+     #     mkdir -p ~/.ssh
+     #     echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+     #     chmod 600 ~/.ssh/id_rsa
 
       
 
