@@ -37,9 +37,28 @@
             max_count: 3
             min_count: 1
 
+    - name: Store kube/config in tempfile
+      ansible.builtin.tempfile:
+        state: file
+      register: aks_kubeconfig_tmpfile
+
+    - name: "Create an {{ k8sconfig.cluster_name }} AKS instance"
+      azure.azcollection.azure_rm_aks: "{{ _aks_module_params }}"
+      register: azure_aks_cluster
+
+    - name: Place kubeconfig onto filesystem temporarily
+      copy: 
+        content: "{{ azure_aks_cluster.kube_config }}"
+        dest: "{{ aks_kubeconfig_tmpfile.path }}"
+        mode: '0600'
+      when: azure_aks_cluster.skip_reason is not defined
+
+    - set_fact:
+        kubeconfig: "{{ aks_kubeconfig_tmpfile.path }}"
+
     - name: Interact with AKS
       kubernetes.core.k8s:
-        kubeconfig: "/home/dinko/.kube/config" 
+        kubeconfig: "{{ kubeconfig }}"
         state: present        
 
     - name: Create a k8s namespace
