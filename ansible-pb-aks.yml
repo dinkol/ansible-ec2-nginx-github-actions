@@ -39,7 +39,7 @@
 
     - name: Interact with AKS
       kubernetes.core.k8s:
-        kubeconfig: "~/.kube/config" 
+        kubeconfig: "/home/dinko/.kube/config" 
         state: present        
 
     - name: Create a k8s namespace
