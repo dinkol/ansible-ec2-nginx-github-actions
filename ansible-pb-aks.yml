@@ -37,6 +37,11 @@
             max_count: 3
             min_count: 1
 
+    - name: Interact with AKS
+      kubernetes.core.k8s:
+        kubeconfig: ./kubeconfig
+        state: present        
+
     - name: Create a k8s namespace
       kubernetes.core.k8s:
         name: testing
