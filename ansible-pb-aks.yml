@@ -9,6 +9,7 @@
         resource_group: rg-dinko
         location: westeurope
         dns_prefix: akstest
+        enable_rbac: true
         kubernetes_version: 1.14.6
         linux_profile:
           admin_username: azureuser
@@ -25,7 +26,6 @@
             mode: System
             max_count: 3
             min_count: 1
-            enable_rbac: true
             tags:
               key1: value1
           - name: user
@@ -36,4 +36,3 @@
             mode: User
             max_count: 3
             min_count: 1
-            enable_rbac: true
