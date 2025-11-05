@@ -67,10 +67,10 @@
     - set_fact:
         kubeconfig: "{{ aks_kubeconfig_tmpfile.path }}"
 
-    - name: Interact with AKS
-      kubernetes.core.k8s:
-        kubeconfig: "{{ kubeconfig }}"
-        state: present
+#    - name: Interact with AKS
+ #     kubernetes.core.k8s:
+#        kubeconfig: "{{ kubeconfig }}"
+  #      state: present
 
     - name: Create a k8s namespace
       kubernetes.core.k8s:
