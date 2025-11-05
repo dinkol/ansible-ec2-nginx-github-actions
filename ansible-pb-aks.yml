@@ -1,0 +1,39 @@
+- name: Deploy AKS with User and System pool
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Create an AKS instance With A System Node Pool & A User Node Pool
+  azure_rm_aks:
+    name: myAKSzaObrisat
+    resource_group: rg-dinko
+    location: westeurope
+    dns_prefix: akstest
+    kubernetes_version: 1.14.6
+    linux_profile:
+      admin_username: azureuser
+      ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    service_principal:
+      client_id: "{{ lookup('env', 'AZURE_CLIENT_ID') }}"
+      client_secret: "{{ lookup('env', 'AZURE_SECRET') }}"
+    agent_pool_profiles:
+      - name: default
+        count: 1
+        vm_size: Standard_B2s
+        enable_auto_scaling: true
+        type: VirtualMachineScaleSets
+        mode: System
+        max_count: 3
+        min_count: 1
+        enable_rbac: true
+        tags:
+          key1: value1
+      - name: user
+        count: 1
+        vm_size: Standard_D2_v2
+        enable_auto_scaling: true
+        type: VirtualMachineScaleSets
+        mode: User
+        max_count: 3
+        min_count: 1
+        enable_rbac: true
