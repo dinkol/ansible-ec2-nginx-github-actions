@@ -1,6 +1,7 @@
 - name: Deploy AKS with User and System pool
   hosts: localhost
   connection: local
+
   vars:
     k8sconfig:
       cluster_name: myAKSzaObrisat
@@ -8,7 +9,7 @@
 
     _aks_module_params:
       name: "{{ k8sconfig.cluster_name }}"
-      resource_group: "{{ k8sconfig.resource_group }}
+      resource_group: "{{ k8sconfig.resource_group }}"
       location: westeurope
       dns_prefix: akstest
       enable_rbac: true
@@ -16,9 +17,11 @@
       linux_profile:
         admin_username: azureuser
         ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQgs3VCgwcdd/7zvCzVgllrseL6LpW3hko+2D2Jz1FEkjBJ4wCyvEzRP1Q+O6qBbPqDj0Mg2sn1NlbZ+iUZsk2ZLN3wY4eZClHx3MvNx/K0Ad2o+RNayypdbK1+BIw+1K6qHpTV4KrqykdKSMQfijQcj55s4Aqvoz18EifHF3TsbmHz7jArb/R5W/6pLaRLkR8W2dVSdfqCnjWj5OznoZamiUdFGArrKkJ3SMFE0ncXwILRjlHGJPyvOvmuC9YeM3H6nS2dZ991LHlHsnELkwFmflagayECBEU1wYX628thB6KBBnyhYUxdW8T+Y4+fhsxGGPt1nIcintsPG+wf6fkSAnluU986TuvnntSn4wesB/XX7BIaOyo2TY4lvuIkBHDnHARs9hA9/lrUJVse0lmylorfFMHwIa06JBGKYxZN6Q8k4AhTvOEBCOXwuw5HzmXyi9JvdhEdmrYs4NrOCWDkGGkEUfbBIXPj3suVMuZ59l3g5m5S4SQ7z9Uq7ywnVFOQTnOpo9dv6b0iR8uVvOpUARM4SMDyFZN3wyvMDfBtNkNR9e73VkkVQWB/DN16nV+tmedKHkkNwCG2+nFmvt+bdyT2q4G6p7GsIi1M77zL+SDFsKNGxuqjYxiN8UtMFYMzVbwDeDYNsLzug5TriJsowJdVh7JnyYb2Df7pEUR+w== keglic@yahoo.com"
+
       service_principal:
         client_id: "{{ lookup('env', 'AZURE_CLIENT_ID') }}"
         client_secret: "{{ lookup('env', 'AZURE_SECRET') }}"
+
       agent_pool_profiles:
         - name: default
           count: 1
@@ -30,6 +33,7 @@
           min_count: 1
           tags:
             key1: value1
+
         - name: user
           count: 1
           vm_size: Standard_D2_v2
@@ -38,11 +42,12 @@
           mode: User
           max_count: 3
           min_count: 1
+
   tasks:
     - name: Create an AKS instance With A System Node Pool & A User Node Pool
       azure.azcollection.azure_rm_aks: "{{ _aks_module_params }}"
       register: azure_aks_cluster
-      
+
     - name: Store kube/config in tempfile
       ansible.builtin.tempfile:
         state: file
@@ -53,7 +58,7 @@
       register: azure_aks_cluster
 
     - name: Place kubeconfig onto filesystem temporarily
-      copy: 
+      copy:
         content: "{{ azure_aks_cluster.kube_config }}"
         dest: "{{ aks_kubeconfig_tmpfile.path }}"
         mode: '0600'
@@ -65,7 +70,7 @@
     - name: Interact with AKS
       kubernetes.core.k8s:
         kubeconfig: "{{ kubeconfig }}"
-        state: present        
+        state: present
 
     - name: Create a k8s namespace
       kubernetes.core.k8s:
