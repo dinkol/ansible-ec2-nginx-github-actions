@@ -53,6 +53,13 @@
         state: file
       register: aks_kubeconfig_tmpfile
 
+    - name: Azure CLI login
+      command: >
+        az login --service-principal
+        -u {{ lookup('env', 'AZURE_CLIENT_ID') }}
+        -p {{ lookup('env', 'AZURE_SECRET') }}
+        --tenant {{ lookup('env', 'AZURE_TENANT_ID') }}
+
     - name: Retrieve kubeconfig from AKS
       command: >
         az aks get-credentials
