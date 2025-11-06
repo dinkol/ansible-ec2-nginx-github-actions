@@ -97,6 +97,7 @@
       kubernetes.core.k8s:
         kubeconfig: "{{ aks_kubeconfig_tmpfile.path }}"
         state: present
+        namespace: testing
         generate_name: pod-
         definition:
           apiVersion: v1
