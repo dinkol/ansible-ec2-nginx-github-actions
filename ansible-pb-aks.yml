@@ -64,15 +64,22 @@
         --name {{ k8sconfig.cluster_name }}
         --file {{ aks_kubeconfig_tmpfile.path }}
         --overwrite-existing
+        --admin
       register: kubeconfig_cmd    
 
 
-    - set_fact:
-        kubeconfig: "{{ aks_kubeconfig_tmpfile.path }}"
+    - name: Debug kubeconfig file path
+      debug:
+        msg: "Kubeconfig file path: {{ aks_kubeconfig_tmpfile.path }}"
+
+    - name: Check kubeconfig file content
+      command: cat {{ aks_kubeconfig_tmpfile.path }}
+      register: kubeconfig_file_content
         
 
     - name: Create a k8s namespace
       kubernetes.core.k8s:
+        kubeconfig: "{{ aks_kubeconfig_tmpfile.path }}"
         name: testing
         api_version: v1
         kind: Namespace
