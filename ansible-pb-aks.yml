@@ -46,7 +46,7 @@
   tasks:
     - name: Create an AKS instance With A System Node Pool & A User Node Pool
       azure.azcollection.azure_rm_aks: 
-      <<: "{{ _aks_module_params }}"
+        <<: "{{ _aks_module_params }}"
       register: azure_aks_cluster
 
     - name: Store kube/config in tempfile
