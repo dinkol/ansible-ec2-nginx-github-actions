@@ -130,3 +130,9 @@
               targetPort: 8000
               name: port-8000-tcp
               port: 8000
+
+    - name: Remove a managed Azure Container Services (AKS) instance
+      azure_rm_aks:
+        name: myAKSzaObrisat
+        resource_group: rg-dinko
+        state: absent
